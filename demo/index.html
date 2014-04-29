@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="demo">
+<head>
+<meta charset="UTF-8">
+<title>Visualizations demo</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body ng-controller="DemoCtrl">
+  <sleep-cycle width="600" sleep-data="data" sunrise="{{sunrise}}"
+    sunset="{{sunset}}" sleep-quality={{quality}}></sleep-cycle>
+  <script type="text/javascript"
+    src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+  <script type="text/javascript"
+    src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+  <script type="text/javascript"
+    src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js"></script>
+  <script type="text/javascript" src="/demo-js/demo.js"></script>
+  <script type="text/javascript" src="/js/sleepcycle.js"></script>
+</body>
+</html>

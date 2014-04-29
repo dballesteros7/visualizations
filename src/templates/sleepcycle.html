@@ -1,0 +1,38 @@
+<svg ng-mousemove="movement($event)"
+     ng-attr-width="{{width}}" ng-attr-height="{{width}}">
+  <defs>
+    <linearGradient id="sun-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#FF8034;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFC02D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g>
+    <path class="clock" ng-attr-d="{{clockPath}}"
+    ng-attr-transform="translate({{center}}, {{center}})"></path>
+    <path class="tick" ng-repeat="tick in ticks" d="M0 0L0 10"
+    ng-attr-transform="translate({{center}}, {{center}}) rotate({{tick.angle}}) translate(0, {{clock.outerRadius -10}})"></path>
+    <text class="tick-text" ng-repeat="tick in ticks | clockticks"
+    ng-attr-transform="translate({{center}}, {{center}})
+                       rotate({{tick.angle}})
+                       translate(0, {{clock.outerRadius -15}})"
+    text-anchor="middle">
+                       {{tick.text}}</text>
+    <path class="outer-shell" ng-attr-d="{{outerArcPath}}"
+    ng-attr-transform="translate({{center}}, {{center}})"
+    ng-mouseover="mouseoverEvent(null)"></path>
+    <path ng-repeat="event in sleepEvents"
+    ng-attr-transform="translate({{center}}, {{center}})"
+    ng-attr-d={{event.path}} ng-class="event.colorClass"
+    class="sleep-event"
+    ng-mouseover="mouseoverEvent(event)"></path>
+    <text class="center-text"
+    ng-attr-transform="translate({{center}}, {{center}})"
+    text-anchor="middle">{{eventText}}</text>
+    <path ng-attr-d="{{sunPath}}"
+    ng-attr-transform="translate({{center}}, {{center}})"
+    class="sun-border" ng-class="sunClass"></path>
+    <text class="center-text"
+    ng-attr-transform="translate({{center}}, {{center + 48}})"
+    text-anchor="middle" ng-style="qualityStyle">{{qualityText}}</text>
+  </g>
+</svg>

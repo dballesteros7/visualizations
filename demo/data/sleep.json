@@ -1,0 +1,121 @@
+{ "ticks" :
+{
+  "meta":  {
+    "user_xid": "0XKM3EPKpEK2Us_gzG4EAA",
+    "message": "OK",
+    "code": 200,
+    "time": 1398796059
+  },
+  "data":  {
+    "items":  [
+       {
+        "depth": 1,
+        "time": 1394580720
+      },
+       {
+        "depth": 2,
+        "time": 1394581200
+      },
+       {
+        "depth": 3,
+        "time": 1394581500
+      },
+       {
+        "depth": 2,
+        "time": 1394581800
+      },
+       {
+        "depth": 3,
+        "time": 1394584200
+      },
+       {
+        "depth": 2,
+        "time": 1394585400
+      },
+       {
+        "depth": 3,
+        "time": 1394586900
+      },
+       {
+        "depth": 2,
+        "time": 1394588700
+      },
+       {
+        "depth": 3,
+        "time": 1394590500
+      },
+       {
+        "depth": 2,
+        "time": 1394591700
+      },
+       {
+        "depth": 3,
+        "time": 1394596800
+      },
+       {
+        "depth": 2,
+        "time": 1394598600
+      },
+       {
+        "depth": 3,
+        "time": 1394602200
+      },
+       {
+        "depth": 2,
+        "time": 1394603100
+      },
+       {
+        "depth": 1,
+        "time": 1394605800
+      }
+    ],
+    "size": 15
+  }
+},
+
+"list" : {
+  "meta":  {
+    "user_xid": "0XKM3EPKpEK2Us_gzG4EAA",
+    "message": "OK",
+    "code": 200,
+    "time": 1398795949
+  },
+  "data":  {
+    "items":  [
+       {
+        "place_lon": "",
+        "time_updated": 1394606471,
+        "xid": "z6BBETRVLXXEhpFEc3oF3Q",
+        "title": "for 6h 46m",
+        "place_acc": "",
+        "sub_type": 0,
+        "time_completed": 1394605816,
+        "details":  {
+          "body": 0,
+          "sound": 7381,
+          "smart_alarm_fire": 1394605800,
+          "awakenings": 0,
+          "light": 16991,
+          "mind": 0,
+          "asleep_time": 1394581439,
+          "awake_time": 1394605800,
+          "awake": 745,
+          "rem": 0,
+          "duration": 25117,
+          "tz": "Europe/Zurich",
+          "quality": 71,
+          "sunset": 1394645100,
+          "sunrise": 1394603100
+        },
+        "place_lat": "",
+        "date": 20140312,
+        "shared": false,
+        "snapshot_image": "/nudge/image/e/1394606471/z6BBETRVLXXEhpFEc3oF3Q/L6F6Mlp2dtg.png",
+        "time_created": 1394580699,
+        "place_name": ""
+      }
+    ],
+    "size": 1
+  }
+}
+}
