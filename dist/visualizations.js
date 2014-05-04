@@ -2,9 +2,10 @@ angular.module('templates-sleepcycle', ['templates/sleepcycle.tpl.html']);
 
 angular.module("templates/sleepcycle.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/sleepcycle.tpl.html",
-    "<svg ng-mousemove=\"movement($event)\" ng-attr-width=\"{{width}}\" ng-attr-height=\"{{width}}\"><defs><lineargradient id=\"sun-grad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" style=\"stop-color:#FF8034;stop-opacity:1\"><stop offset=\"100%\" style=\"stop-color:#FFC02D;stop-opacity:1\"></lineargradient></defs><g><path class=\"clock\" ng-attr-d=\"{{clockPath}}\" ng-attr-transform=\"translate({{center}}, {{center}})\"></path><path class=\"tick\" ng-repeat=\"tick in ticks\" d=\"M0 0L0 10\" ng-attr-transform=\"translate({{center}}, {{center}}) rotate({{tick.angle}}) translate(0, {{clock.outerRadius -10}})\"></path><text class=\"tick-text\" ng-repeat=\"tick in ticks | clockticks\" ng-attr-transform=\"translate({{center}}, {{center}})\n" +
+    "<svg ng-mousemove=\"movement($event)\" ng-attr-width=\"{{width}}\" ng-attr-height=\"{{height}}\"><defs><lineargradient id=\"sun-grad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" style=\"stop-color:#FF8034;stop-opacity:1\"><stop offset=\"100%\" style=\"stop-color:#FFC02D;stop-opacity:1\"></lineargradient></defs><g><path class=\"clock\" ng-attr-d=\"{{clockPath}}\" ng-attr-transform=\"translate({{center}}, {{center}})\"></path><path class=\"tick\" ng-repeat=\"tick in ticks\" d=\"M0 0L0 10\" ng-attr-transform=\"translate({{center}}, {{center}}) rotate({{tick.angle}}) translate(0, {{clock.outerRadius -10}})\"></path><text class=\"tick-text\" ng-repeat=\"tick in ticks | clockticks\" ng-attr-transform=\"translate({{center}}, {{center}})\n" +
     "                       rotate({{tick.angle}})\n" +
-    "                       translate(0, {{clock.outerRadius -15}})\" text-anchor=\"middle\">{{tick.text}}</text><path class=\"outer-shell\" ng-attr-d=\"{{outerArcPath}}\" ng-attr-transform=\"translate({{center}}, {{center}})\" ng-mouseover=\"mouseoverEvent(null)\"></path><path ng-repeat=\"event in sleepEvents\" ng-attr-transform=\"translate({{center}}, {{center}})\" ng-attr-d=\"{{event.path}}\" ng-class=\"event.colorClass\" class=\"sleep-event\" ng-mouseover=\"mouseoverEvent(event)\"></path><text class=\"center-text\" ng-attr-transform=\"translate({{center}}, {{center}})\" text-anchor=\"middle\">{{eventText}}</text><path ng-attr-d=\"{{sunPath}}\" ng-attr-transform=\"translate({{center}}, {{center}})\" class=\"sun-border\" ng-class=\"sunClass\"></path><text class=\"center-text\" ng-attr-transform=\"translate({{center}}, {{center + 48}})\" text-anchor=\"middle\" ng-style=\"qualityStyle\">{{qualityText}}</text></g></svg>");
+    "                       translate(0, {{clock.outerRadius -15}})\" text-anchor=\"middle\">{{tick.text}}</text><path class=\"outer-shell\" ng-attr-d=\"{{outerArcPath}}\" ng-attr-transform=\"translate({{center}}, {{center}})\" ng-mouseover=\"mouseoverEvent(null)\"></path><path ng-attr-d=\"{{clockHandPath}}\" class=\"clock-hand\" ng-attr-transform=\"translate({{center}}, {{center}}) rotate({{clockHandAngle}})\n" +
+    "    translate(0, {{clock.outerRadius}})\"></path><path ng-repeat=\"event in sleepEvents\" ng-attr-transform=\"translate({{center}}, {{center}})\" ng-attr-d=\"{{event.path}}\" ng-class=\"event.colorClass\" class=\"sleep-event\" ng-mouseover=\"mouseoverEvent(event)\"></path><text class=\"center-text\" ng-attr-transform=\"translate({{center}}, {{center}})\" text-anchor=\"middle\">{{eventText}}</text><path ng-attr-d=\"{{sunPath}}\" ng-attr-transform=\"translate({{center}}, {{center}})\" class=\"sun-border\" ng-class=\"sunClass\"></path><text class=\"center-text\" ng-attr-transform=\"translate({{center}}, {{center + 48}})\" text-anchor=\"middle\" ng-style=\"qualityStyle\">{{qualityText}}</text><text class=\"current-hour-text\" text-anchor=\"middle\" ng-attr-transform=\"translate({{center}}, {{height}})\" ng-bind=\"currentDate\"></text></g></svg>");
 }]);
 
 var sleepcycle = angular.module('sleepcycle', ['templates-sleepcycle']);
@@ -41,6 +42,9 @@ sleepcycle.directive('sleepCycle', function(){
   function deg2rad(val){
     return val*Math.PI/180;
   }
+  function rad2deg(val){
+    return val*180/Math.PI;
+  }
   function angleToHour(angle){
     var hour = 6 + (angle*12/Math.PI);
     if(hour < 0){
@@ -67,6 +71,16 @@ sleepcycle.directive('sleepCycle', function(){
       eventData.colorClass = val.colorClass;
       eventData.description = val.description;
       scope.sleepEvents.push(eventData);
+      scope.currentDate = scope.sleepData[0].startTime.toLocaleDateString();
+      if(scope.sleepData[0].startTime.getHours() <= 12){
+        scope.breakpointInDate = false;
+      } else {
+        scope.breakpointInDate = true;
+        scope.dateBeforeMidnight = scope.sleepData[0].startTime;
+        scope.dateAfterMidnight = new Date(scope.sleepData[0]
+          .startTime.getTime() + 24*3600*1000 + 1);
+        scope.breakpointHour = scope.sleepData[0].startTime.getHours();
+      }
     });
   };
   return {
@@ -83,10 +97,12 @@ sleepcycle.directive('sleepCycle', function(){
       // Initialize
       scope.rootElement = element[0];
       scope.width = parseFloat(scope.width);
+      scope.bottomMargin = 20;
+      scope.height = scope.width + scope.bottomMargin;
       scope.clockPath = "";
       scope.clock = {
         innerRadius : 0,
-        outerRadius : 0.2 * scope.width,
+        outerRadius : 0.3 * scope.width,
         startAngle : 0,
         endAngle : 2 * Math.PI
       };
@@ -96,7 +112,7 @@ sleepcycle.directive('sleepCycle', function(){
       scope.ticks = _.map(_.range(24), hourToTick);
       scope.outerArc = {
         innerRadius : scope.clock.outerRadius,
-        outerRadius : 0.2 * scope.width + scope.clock.outerRadius,
+        outerRadius : 0.1 * scope.width + scope.clock.outerRadius,
         startAngle : 0,
         endAngle : 2 * Math.PI
       };
@@ -117,10 +133,15 @@ sleepcycle.directive('sleepCycle', function(){
         startAngle : 0,
         endAngle : 2 * Math.PI
       });
+      scope.clockHandPath = 'M0,0V' + (scope.outerArc.outerRadius -
+          scope.outerArc.innerRadius);
+      scope.clockHandAngle = 0;
+      scope.currentDate = "";
       scope.movement = function(event){
         var centerX = scope.rootElement.offsetLeft + scope.center;
         var centerY = scope.rootElement.offsetTop + scope.center;
         var angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+        scope.clockHandAngle = rad2deg(angle) - 90;
         var hour = angleToHour(angle);
         var daylight = scope.sunset - scope.sunrise;
         var nighttime = 24 - daylight;
@@ -138,10 +159,17 @@ sleepcycle.directive('sleepCycle', function(){
           }
           scope.sunClass = colorForTick(ticks, false);
         }
+        if(scope.breakpointInDate){
+          if(hour < scope.breakpointHour){
+            scope.currentDate = scope.dateAfterMidnight.toLocaleDateString();
+          } else {
+            scope.currentDate = scope.dateBeforeMidnight.toLocaleDateString();
+          }
+        }
       };
       scope.$watch('sleepQuality', function(){
         var minFont = 12;
-        var maxFont = 48;
+        var maxFont = 18;
         var fontSize = (maxFont - minFont)*scope.sleepQuality/100 + minFont;
         scope.qualityText = scope.sleepQuality + '%';
         scope.qualityStyle = {'font-size' : fontSize + 'px'};

@@ -10,7 +10,7 @@
     "items":  [
        {
         "depth": 1,
-        "time": 1394580720
+        "time": 1394487120
       },
        {
         "depth": 2,
@@ -103,7 +103,7 @@
           "rem": 0,
           "duration": 25117,
           "tz": "Europe/Zurich",
-          "quality": 71,
+          "quality": 100,
           "sunset": 1394645100,
           "sunrise": 1394603100
         },

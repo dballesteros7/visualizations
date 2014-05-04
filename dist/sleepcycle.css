@@ -15,7 +15,7 @@ path {
 }
 
 .tick-text {
-  font-size: 18px;
+  font-size: 16px;
   stroke: #C0AF9D;
 }
 
@@ -36,7 +36,7 @@ path {
 }
 
 .center-text {
-  font-size: 24px;
+  font-size: 18px;
   stroke: #C0AF9D;
 }
 
@@ -91,4 +91,13 @@ path {
 
 .nighttime-5 {
   fill : #000000;
+}
+
+.clock-hand {
+  stroke : #000000;
+}
+
+.current-hour-text {
+  font-size: 18px;
+  stroke: #C0AF9D;
 }

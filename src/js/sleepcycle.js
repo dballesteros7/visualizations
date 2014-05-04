@@ -32,6 +32,9 @@ sleepcycle.directive('sleepCycle', function(){
   function deg2rad(val){
     return val*Math.PI/180;
   }
+  function rad2deg(val){
+    return val*180/Math.PI;
+  }
   function angleToHour(angle){
     var hour = 6 + (angle*12/Math.PI);
     if(hour < 0){
@@ -58,6 +61,16 @@ sleepcycle.directive('sleepCycle', function(){
       eventData.colorClass = val.colorClass;
       eventData.description = val.description;
       scope.sleepEvents.push(eventData);
+      scope.currentDate = scope.sleepData[0].startTime.toLocaleDateString();
+      if(scope.sleepData[0].startTime.getHours() <= 12){
+        scope.breakpointInDate = false;
+      } else {
+        scope.breakpointInDate = true;
+        scope.dateBeforeMidnight = scope.sleepData[0].startTime;
+        scope.dateAfterMidnight = new Date(scope.sleepData[0]
+          .startTime.getTime() + 24*3600*1000 + 1);
+        scope.breakpointHour = scope.sleepData[0].startTime.getHours();
+      }
     });
   };
   return {
@@ -74,10 +87,12 @@ sleepcycle.directive('sleepCycle', function(){
       // Initialize
       scope.rootElement = element[0];
       scope.width = parseFloat(scope.width);
+      scope.bottomMargin = 20;
+      scope.height = scope.width + scope.bottomMargin;
       scope.clockPath = "";
       scope.clock = {
         innerRadius : 0,
-        outerRadius : 0.2 * scope.width,
+        outerRadius : 0.3 * scope.width,
         startAngle : 0,
         endAngle : 2 * Math.PI
       };
@@ -87,7 +102,7 @@ sleepcycle.directive('sleepCycle', function(){
       scope.ticks = _.map(_.range(24), hourToTick);
       scope.outerArc = {
         innerRadius : scope.clock.outerRadius,
-        outerRadius : 0.2 * scope.width + scope.clock.outerRadius,
+        outerRadius : 0.1 * scope.width + scope.clock.outerRadius,
         startAngle : 0,
         endAngle : 2 * Math.PI
       };
@@ -108,10 +123,15 @@ sleepcycle.directive('sleepCycle', function(){
         startAngle : 0,
         endAngle : 2 * Math.PI
       });
+      scope.clockHandPath = 'M0,0V' + (scope.outerArc.outerRadius -
+          scope.outerArc.innerRadius);
+      scope.clockHandAngle = 0;
+      scope.currentDate = "";
       scope.movement = function(event){
         var centerX = scope.rootElement.offsetLeft + scope.center;
         var centerY = scope.rootElement.offsetTop + scope.center;
         var angle = Math.atan2(event.clientY - centerY, event.clientX - centerX);
+        scope.clockHandAngle = rad2deg(angle) - 90;
         var hour = angleToHour(angle);
         var daylight = scope.sunset - scope.sunrise;
         var nighttime = 24 - daylight;
@@ -129,10 +149,17 @@ sleepcycle.directive('sleepCycle', function(){
           }
           scope.sunClass = colorForTick(ticks, false);
         }
+        if(scope.breakpointInDate){
+          if(hour < scope.breakpointHour){
+            scope.currentDate = scope.dateAfterMidnight.toLocaleDateString();
+          } else {
+            scope.currentDate = scope.dateBeforeMidnight.toLocaleDateString();
+          }
+        }
       };
       scope.$watch('sleepQuality', function(){
         var minFont = 12;
-        var maxFont = 48;
+        var maxFont = 18;
         var fontSize = (maxFont - minFont)*scope.sleepQuality/100 + minFont;
         scope.qualityText = scope.sleepQuality + '%';
         scope.qualityStyle = {'font-size' : fontSize + 'px'};

@@ -1,5 +1,5 @@
-<svg ng-mousemove="movement($event)"
-     ng-attr-width="{{width}}" ng-attr-height="{{width}}">
+<svg ng-mousemove="movement($event)" ng-attr-width="{{width}}"
+  ng-attr-height="{{height}}">
   <defs>
     <linearGradient id="sun-grad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#FF8034;stop-opacity:1" />
@@ -20,11 +20,13 @@
     <path class="outer-shell" ng-attr-d="{{outerArcPath}}"
     ng-attr-transform="translate({{center}}, {{center}})"
     ng-mouseover="mouseoverEvent(null)"></path>
+    <path ng-attr-d="{{clockHandPath}}" class="clock-hand"
+    ng-attr-transform="translate({{center}}, {{center}}) rotate({{clockHandAngle}})
+    translate(0, {{clock.outerRadius}})"></path>
     <path ng-repeat="event in sleepEvents"
     ng-attr-transform="translate({{center}}, {{center}})"
     ng-attr-d={{event.path}} ng-class="event.colorClass"
-    class="sleep-event"
-    ng-mouseover="mouseoverEvent(event)"></path>
+    class="sleep-event" ng-mouseover="mouseoverEvent(event)"></path>
     <text class="center-text"
     ng-attr-transform="translate({{center}}, {{center}})"
     text-anchor="middle">{{eventText}}</text>
@@ -34,5 +36,8 @@
     <text class="center-text"
     ng-attr-transform="translate({{center}}, {{center + 48}})"
     text-anchor="middle" ng-style="qualityStyle">{{qualityText}}</text>
+    <text class="current-hour-text" text-anchor="middle"
+    ng-attr-transform="translate({{center}}, {{height}})"
+    ng-bind="currentDate"></text>
   </g>
 </svg>
