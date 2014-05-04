@@ -2,3 +2,6 @@
 *.project
 *log
 *pid
+# Build files
+build/
+node_modules/
