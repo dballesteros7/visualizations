@@ -60,13 +60,13 @@ module.exports = function(grunt){
               nonull : true,
               cwd : 'build/',
               src : [ '<%= pkg.name %>.min.js', '<%= pkg.name %>.js' ],
-              dest : 'dist/v<%= pkg.version %>/'
+              dest : 'dist/'
             }, {
               expand : true,
               nonull : true,
               cwd : 'src/css/',
               src : '*.css',
-              dest : 'dist/v<%= pkg.version %>/'
+              dest : 'dist/'
             } ]
           }
         },
@@ -82,11 +82,11 @@ module.exports = function(grunt){
                   expand : true,
                   cwd : 'src/css/',
                   src : [ '*.css' ],
-                  dest : 'dist/v<%= pkg.version %>/',
+                  dest : 'dist/',
                   ext : '.min.css'
                 },
                 {
-                  'dist/v<%= pkg.version %>/<%= pkg.name %>.min.css' : [ 'src/css/*.css' ]
+                  'dist/<%= pkg.name %>.min.css' : [ 'src/css/*.css' ]
                 } ]
           }
         }
