@@ -1,0 +1,25 @@
+{
+  "name": "visualizations",
+  "version": "0.1.0",
+  "homepage": "https://github.com/dballesteros7/visualizations",
+  "authors": [
+    "Diego Ballesteros Villamizar <diegob@student.ethz.ch>"
+  ],
+  "description": "A set of AngularJS/D3 based SVG visualization modules",
+  "main": "dist/v0.1.0/visualizations.min.js",
+  "dependencies" : {
+    "angular" : "~1.2.17",
+    "d3" : "~3.4.6",
+    "underscore" : "~1.6.0"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "build",
+    "demo"
+  ]
+}
