@@ -50,6 +50,7 @@ sleepcycle.directive('sleepCycle', function(){
      * * colorClass : css class that defines the color.
      * * description: Text description of the sleep object.
      */
+    scope.sleepEvents = [];
     scope.sleepData.forEach(function(val){
       var eventData = {
           innerRadius: scope.outerArc.innerRadius,
