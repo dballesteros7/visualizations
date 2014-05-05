@@ -109,7 +109,7 @@ sleepcycle.directive('sleepCycle', function(){
       scope.outerArcPath = scope.arcDefinition(scope.outerArc);
       scope.sleepEvents = [];
       scope.$watchCollection('sleepData', paintData);
-      scope.eventText = 'Daytime';
+      scope.eventText = 'Idle';
       scope.mouseoverEvent = function(eventItem){
         if(eventItem){
           scope.eventText = eventItem.description;
