@@ -1,0 +1,38 @@
+.date-series-focus-line {
+  stroke: #3156A3;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.date-series-context-area {
+  fill: #3156A3;
+}
+
+.date-series-point {
+  fill: #FC7524;
+  stroke: #E6E6E6;
+  stroke-width: 1.5;
+  cursor: crosshair;
+}
+
+.date-series-tooltip {
+  stroke: #000000;
+  cursor: crosshair;
+  text-anchor: middle;
+  font-size: 12px;
+}
+
+.date-series-axis-titles text{
+  text-anchor: middle;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.date-series-axis .domain {
+  stroke : none;
+  fill: #000000;
+}
+
+.date-series-axis line {
+  stroke: #000000;
+}

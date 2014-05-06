@@ -1,7 +1,8 @@
-var app = angular.module('demo', [ 'sleepcycle' ]);
+var app = angular.module('demo', [ 'sleepcycle', 'dateseries' ]);
 
 app.controller('DemoCtrl', [ '$scope', '$http', function($scope, $http){
   $scope.data = [];
+  $scope.timedata = [];
   function getColor(depth){
     switch (depth) {
     case 1:
@@ -48,5 +49,16 @@ app.controller('DemoCtrl', [ '$scope', '$http', function($scope, $http){
     var tmpSunset = new Date(data.list.data.items[0].details.sunset * 1000);
     $scope.sunset = tmpSunset.getHours() + tmpSunset.getMinutes() / 60;
     $scope.quality = data.list.data.items[0].details.quality;
+  });
+  $http({
+    url : '/data/data-series.json',
+    method : 'GET'
+  }).success(function(data, status, header, config){
+    data.forEach(function(val){
+      $scope.timedata.push({
+        value : val.value,
+        datetime : new Date(val.datetime)
+      });
+    });
   });
 } ]);

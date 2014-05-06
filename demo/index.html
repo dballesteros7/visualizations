@@ -10,6 +10,8 @@
   <sleep-cycle width="
   300" sleep-data="data" sunrise="{{sunrise}}"
     sunset="{{sunset}}" sleep-quality={{quality}}></sleep-cycle>
+  <date-series width="500" height="300" id="chart" units="sleeps"
+    axis-x-title="Date" y-title="Quality" data="timedata"></date-series>
   <script type="text/javascript"
     src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
   <script type="text/javascript"
@@ -17,6 +19,6 @@
   <script type="text/javascript"
     src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js"></script>
   <script type="text/javascript" src="/demo-js/demo.js"></script>
-  <script type="text/javascript" src="/dist/visualizations.min.js"></script>
+  <script type="text/javascript" src="/dist/visualizations.js"></script>
 </body>
 </html>
