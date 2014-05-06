@@ -17,7 +17,8 @@
         <path ng-repeat="point in dataPoints"
     ng-attr-transform="translate({{point.x}}, {{point.y}})"
     ng-attr-d="{{symbolGen()}}" class="date-series-point"
-    ng-mouseenter="showTooltip(point)" ng-mouseleave="hideTooltip()"></path>
+    ng-mouseenter="showTooltip(point)" ng-mouseleave="hideTooltip()"
+    ng-click="clickFunction({point : point})"></path>
         <text class="date-series-tooltip"
     ng-attr-transform="translate({{tooltip.x}}, {{tooltip.y}})"
     ng-show="tooltip.show">{{tooltip.value}}</text>

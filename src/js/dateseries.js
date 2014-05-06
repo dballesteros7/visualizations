@@ -203,6 +203,7 @@ dateseries.directive('dateSeries',
               units : '@',
               yTitle : '@',
               xTitle : '@axisXTitle',
+              clickFunction : '&clickDataPoint'
             },
             link : link
           };

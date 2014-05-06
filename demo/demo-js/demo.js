@@ -61,4 +61,8 @@ app.controller('DemoCtrl', [ '$scope', '$http', function($scope, $http){
       });
     });
   });
+  $scope.showDataPoint = function(point){
+    console.log(point);
+    console.log($scope);
+  };
 } ]);
