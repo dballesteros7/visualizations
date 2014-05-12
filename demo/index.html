@@ -13,6 +13,9 @@
   <date-series width="500" height="300" id="chart" units="%"
     axis-x-title="Date" y-title="Quality" data="timedata"
     click-data-point="showDataPoint(point)"></date-series>
+  <workout-calories w="{{width}}" h="{{height}}" calories-data="calories"></workout-calories>
+  <input ng-init="width=500" type="number" ng-model="width">
+  <input ng-init="height=500" type="number" ng-model="height">
   <script type="text/javascript"
     src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
   <script type="text/javascript"

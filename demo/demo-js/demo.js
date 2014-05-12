@@ -1,4 +1,4 @@
-var app = angular.module('demo', [ 'sleepcycle', 'dateseries' ]);
+var app = angular.module('demo', [ 'sleepcycle', 'dateseries', 'workoutcalories']);
 
 app.controller('DemoCtrl', [ '$scope', '$http', function($scope, $http){
   $scope.data = [];
@@ -65,4 +65,13 @@ app.controller('DemoCtrl', [ '$scope', '$http', function($scope, $http){
     console.log(point);
     console.log($scope);
   };
+  $http({
+    url : '/data/workoutcalories.json',
+    method : 'GET'
+  }).success(function(data){
+    $scope.calories = _.map(data, function(val){
+      return {day : new Date(val.day),
+          calories : parseFloat(val.calories)};
+    });
+  });
 } ]);
