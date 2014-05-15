@@ -1,4 +1,4 @@
-var app = angular.module('demo', [ 'sleepcycle', 'dateseries' ]);
+var app = angular.module('demo', [ 'sleepcycle', 'dateseries', 'weightscale' ]);
 
 app.controller('DemoCtrl', [ '$scope', '$http', function($scope, $http){
   $scope.data = [];
