@@ -13,6 +13,11 @@
   <date-series width="500" height="300" id="chart" units="%"
     axis-x-title="Date" y-title="Quality" data="timedata"
     click-data-point="showDataPoint(point)"></date-series>
+  <weight-scale width="{{width}}" height="200"
+    weight="{{weight}}" bmi="{{weight/(height*height)}}"></weight-scale>
+  <input type="number" ng-init="width = 600" ng-model="width">
+  <input type="number" ng-init="weight = 85" ng-model="weight">
+  <input type="number" ng-init="height = 1.75" ng-model="height">
   <script type="text/javascript"
     src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
   <script type="text/javascript"
